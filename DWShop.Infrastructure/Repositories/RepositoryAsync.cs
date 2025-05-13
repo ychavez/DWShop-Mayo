@@ -36,6 +36,7 @@ namespace DWShop.Infrastructure.Repositories
             query = IncludeStrings.Aggregate(query,
                 (current, itemInclude) => current.Include(itemInclude));
 
+
             // si hubo where lo agregamos
             if (predicate is not null)
                 query = query.Where(predicate);
@@ -47,7 +48,6 @@ namespace DWShop.Infrastructure.Repositories
             return await (orderBy is not null ? orderBy(query) : query).ToListAsync();
 
         }
-
 
         public async Task SaveChangesAsync()
             => await context.SaveChangesAsync();
