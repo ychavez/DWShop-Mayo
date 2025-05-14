@@ -32,17 +32,17 @@ namespace DWShop.Infrastructure.Repositories
         {
             IQueryable<T> query = context.Set<T>();
 
-            // agregamos los join
-            query = IncludeStrings.Aggregate(query,
-                (current, itemInclude) => current.Include(itemInclude));
 
+            //Paginacion
+            query = query.Skip((pageNumber - 1) * pageSize).Take(pageSize);
 
             // si hubo where lo agregamos
             if (predicate is not null)
                 query = query.Where(predicate);
 
-            //Paginacion
-            query = query.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+            // agregamos los join
+            query = IncludeStrings.Aggregate(query,
+                (current, itemInclude) => current.Include(itemInclude));
 
             //revisamos ordenamiento y retornamos
             return await (orderBy is not null ? orderBy(query) : query).ToListAsync();

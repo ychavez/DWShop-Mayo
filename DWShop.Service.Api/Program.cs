@@ -1,3 +1,4 @@
+using DWShop.Infrastructure.Extensions;
 
 namespace DWShop.Service.Api
 {
@@ -12,6 +13,7 @@ namespace DWShop.Service.Api
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+            builder.Services.RegisterInfrastructure();
 
             var app = builder.Build();
 
