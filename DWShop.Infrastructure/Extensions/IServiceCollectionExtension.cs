@@ -7,13 +7,14 @@ namespace DWShop.Infrastructure.Extensions
 {
     public static class IServiceCollectionExtension
     {
-        public static void RegisterInfrastructure(this IServiceCollection services)
+        public static void RegisterInfrastructure(this IServiceCollection services, string connectionString)
         {
             services.AddDbContext<AuditableContext>(options =>
-             options.UseSqlServer("default"));
+             options.UseSqlServer(connectionString));
 
             services.AddScoped(typeof(IRepositoryAsync<,>), typeof(RepositoryAsync<,>));
 
+          
         }
     }
 }

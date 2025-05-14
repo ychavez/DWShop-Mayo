@@ -13,6 +13,5 @@ namespace DWShop.Service.Api.Controllers
             mediatorInstance
             ??= HttpContext.RequestServices.GetService<IMediator>()
             ?? throw new ArgumentNullException(nameof(IMediator));
-
     }
 }

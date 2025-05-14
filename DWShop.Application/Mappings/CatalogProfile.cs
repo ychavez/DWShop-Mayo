@@ -9,8 +9,7 @@ namespace DWShop.Application.Mappings
         public CatalogProfile()
         {
             CreateMap<Catalog, CreateCatalogCommand>()
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
-                .ForMember(dest => dest.Name, opt => opt.Ignore())
+//                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ReverseMap();
         }
     }

@@ -1,13 +1,24 @@
 ﻿using DWShop.Domain.Contracts;
 using DWShop.Domain.Entities;
 using DWShop.Domain.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
+using static DWShop.Infrastructure.Context.AuditableContext;
 
 namespace DWShop.Infrastructure.Context
 {
-    public class AuditableContext : IdentityDbContext
+    public class AuditableContext : IdentityDbContext<miusuario>
     {
+
+        [Table("hola")]
+        public class miusuario : IdentityUser
+        {
+            public int Gafette { get; set; }
+        }
+
+
         public AuditableContext(DbContextOptions options) : base(options)
         {
 
@@ -93,18 +104,18 @@ namespace DWShop.Infrastructure.Context
                             auditEntry.AuditType = AuditType.Create;
                             auditEntry.NewValues[propertyName] = property.CurrentValue!;
                             break;
-  
+
                     }
                 }
             }
 
-            foreach (var auditEntry in auditEntries.Where(x=> !x.HasTemporaryProperties))
+            foreach (var auditEntry in auditEntries.Where(x => !x.HasTemporaryProperties))
             {
                 Audit.Add(auditEntry.ToAudit());
             }
 
             return auditEntries.Where(x => !x.HasTemporaryProperties).ToList();
-           
+
         }
     }
 }
