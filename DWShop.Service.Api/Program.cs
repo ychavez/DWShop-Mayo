@@ -1,4 +1,5 @@
 using DWShop.Infrastructure.Extensions;
+using DWShop.Service.Api.Middleware;
 
 namespace DWShop.Service.Api
 {
@@ -22,6 +23,8 @@ namespace DWShop.Service.Api
             {
                 app.MapOpenApi();
             }
+
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseAuthorization();
 

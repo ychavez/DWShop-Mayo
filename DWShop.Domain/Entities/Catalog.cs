@@ -14,6 +14,7 @@ namespace DWShop.Domain.Entities
 
         public decimal Price { get; set; }
 
+
         public string? PhotoURL { get; set; }
 
     }

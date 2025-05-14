@@ -2,10 +2,11 @@
 using MediatR;
 using DWShop.Infrastructure.Repositories;
 using DWShop.Domain.Entities;
+using DWShop.Shared.Wrapper;
 
 namespace DWShop.Application.Features.Catalog.Commands.Create
 {
-    public class CreateCatalogCommandHandler : IRequestHandler<CreateCatalogCommand, int>
+    public class CreateCatalogCommandHandler : IRequestHandler<CreateCatalogCommand, IResult<int>>
     {
         private readonly IMapper mapper;
         private readonly IRepositoryAsync<Domain.Entities.Catalog, int> repositoryAsync;
@@ -16,8 +17,9 @@ namespace DWShop.Application.Features.Catalog.Commands.Create
             this.mapper = mapper;
             this.repositoryAsync = repositoryAsync;
         }
-        public async Task<int> Handle(CreateCatalogCommand request, CancellationToken cancellationToken)
+        public async Task<IResult<int>> Handle(CreateCatalogCommand request, CancellationToken cancellationToken)
         {
+
             var catalogDb = await repositoryAsync.GetPagedAsync(1, 1, x => x.Name == request.Name, default);
 
             if (catalogDb.Any())
@@ -25,13 +27,13 @@ namespace DWShop.Application.Features.Catalog.Commands.Create
                 throw new Exception($"El producto {request.Name} ya se encuentra en la base de datos");
             }
 
-            var catalog = mapper.Map<Domain.Entities.Catalog>(request);
+           var catalog = mapper.Map<Domain.Entities.Catalog>(request);
 
-            await repositoryAsync.AddAsync(catalog);
+           await repositoryAsync.AddAsync(catalog);
 
             await repositoryAsync.SaveChangesAsync();
 
-            return catalog.Id;
+            return await Result<int>.SuccessAsync(catalog.Id, "");
         }
     }
 }

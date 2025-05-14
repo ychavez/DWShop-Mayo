@@ -14,11 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Behaviors\" />
     <Folder Include="Extensions\" />
     <Folder Include="Interfaces\" />
-    <Folder Include="Mappings\" />
-    <Folder Include="Validations\" />
     <Folder Include="Responses\" />
   </ItemGroup>
 
