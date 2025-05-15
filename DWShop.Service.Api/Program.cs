@@ -1,6 +1,7 @@
 using DWShop.Infrastructure.Extensions;
 using DWShop.Service.Api.Middleware;
 using DWShop.Application.Extensions;
+using DWShop.Service.Api.Modules;
 
 namespace DWShop.Service.Api
 {
@@ -18,6 +19,8 @@ namespace DWShop.Service.Api
             builder.Services.RegisterInfrastructure(
                 builder.Configuration.GetConnectionString("DefaultConnection")!);
 
+            builder.Services.AddSwagger();
+
             builder.Services.RegisterApplication();
 
             var app = builder.Build();
@@ -26,6 +29,14 @@ namespace DWShop.Service.Api
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
+
+                app.UseSwagger();
+                app.UseSwaggerUI(x =>
+                {
+                    x.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger");
+                    x.RoutePrefix = "";
+
+                });
             }
 
             app.UseMiddleware<ExceptionMiddleware>();
