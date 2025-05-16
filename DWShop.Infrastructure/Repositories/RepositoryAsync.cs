@@ -1,6 +1,7 @@
 ﻿using DWShop.Domain.Contracts;
 using DWShop.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System.Linq.Expressions;
 
 namespace DWShop.Infrastructure.Repositories
@@ -8,6 +9,8 @@ namespace DWShop.Infrastructure.Repositories
     public class RepositoryAsync<T, TId>(AuditableContext context)
         : IRepositoryAsync<T, TId> where T : AuditableEntity<TId>
     {
+
+    
         public async Task<T> AddAsync(T entity)
         {
             await context.Set<T>().AddAsync(entity);

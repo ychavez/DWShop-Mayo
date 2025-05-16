@@ -16,8 +16,9 @@ namespace DWShop.Infrastructure.Context
         public DbSet<Basket> Basket { get; set; }
         public DbSet<Catalog> Catalog { get; set; }
         public DbSet<Audit> Audit { get; set; }
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
+            var auditEntries = onBeforeSaveChanges("User");
             foreach (var item in ChangeTracker.Entries<IAuditableEntity>().ToList())
             {
                 switch (item.State)
@@ -33,7 +34,11 @@ namespace DWShop.Infrastructure.Context
                 }
             }
 
-            return base.SaveChangesAsync(cancellationToken);
+            var result = await base.SaveChangesAsync(cancellationToken);
+
+            await OnAfterSaveChanges(auditEntries);
+
+            return result;
         }
 
 
@@ -44,7 +49,6 @@ namespace DWShop.Infrastructure.Context
 
             foreach (var entry in ChangeTracker.Entries())
             {
-
                 if (entry.Entity is Audit
                     || entry.State == EntityState.Detached
                     || entry.State == EntityState.Unchanged
@@ -105,8 +109,35 @@ namespace DWShop.Infrastructure.Context
                 Audit.Add(auditEntry.ToAudit());
             }
 
-            return auditEntries.Where(x => !x.HasTemporaryProperties).ToList();
+            return auditEntries.Where(x => x.HasTemporaryProperties).ToList();
 
         }
+
+        private Task OnAfterSaveChanges(List<AuditEntry> auditEntries)
+        {
+
+            if (auditEntries is null || !auditEntries.Any())
+                return Task.CompletedTask;
+            
+
+            foreach (var auditEntry in auditEntries)
+            {
+                foreach (var prop in auditEntry.TemporaryProperties)
+                {
+                    if (prop.Metadata.IsPrimaryKey())
+                    {
+                        auditEntry.KeyValues[prop.Metadata.Name] = prop.CurrentValue!;
+                    }
+                    else
+                    {
+                        auditEntry.NewValues[prop.Metadata.Name] = prop.CurrentValue!;
+                    }
+                }
+                Audit.Add(auditEntry.ToAudit());
+
+            }
+            return SaveChangesAsync();
+        }
     }
+
 }

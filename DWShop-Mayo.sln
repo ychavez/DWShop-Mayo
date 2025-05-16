@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35931.197 d17.13
+VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
@@ -38,6 +38,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Bonus", "Bonus", "{64D46914-87C2-4569-B289-58F05EBA557B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StakHeap", "StakHeap\StakHeap.csproj", "{89FDC094-3948-44E4-A6B9-2B2196877616}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskAsync", "TaskAsync\TaskAsync.csproj", "{36B9E527-0577-44E4-8671-CE664674603B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{89FDC094-3948-44E4-A6B9-2B2196877616}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89FDC094-3948-44E4-A6B9-2B2196877616}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89FDC094-3948-44E4-A6B9-2B2196877616}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36B9E527-0577-44E4-8671-CE664674603B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36B9E527-0577-44E4-8671-CE664674603B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36B9E527-0577-44E4-8671-CE664674603B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36B9E527-0577-44E4-8671-CE664674603B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,6 +103,7 @@ Global
 		{8AB661E5-F769-43F8-85BD-DB78B650F787} = {CA59A97D-7D40-471D-B1B2-4223E0838EC6}
 		{DF1F3600-545B-453A-8296-CB89B2C1BA6C} = {6AE74296-DF8E-4D03-A940-20835E8FF469}
 		{89FDC094-3948-44E4-A6B9-2B2196877616} = {64D46914-87C2-4569-B289-58F05EBA557B}
+		{36B9E527-0577-44E4-8671-CE664674603B} = {64D46914-87C2-4569-B289-58F05EBA557B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9D11C47F-3D62-4D47-9313-9FE71058B919}

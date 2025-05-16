@@ -23,7 +23,7 @@ namespace DWShop.Domain.Models
         public List<PropertyEntry> TemporaryProperties { get; set; } = new();
 
         public AuditType AuditType { get; set; }
-        public List<string> ChangedColumns { get; set; }
+        public List<string> ChangedColumns { get; set; } = new();
 
         public bool HasTemporaryProperties => TemporaryProperties.Any();
 

@@ -1,4 +1,5 @@
 ﻿using DWShop.Domain.Contracts;
+using Microsoft.EntityFrameworkCore.Storage;
 using System.Linq.Expressions;
 
 namespace DWShop.Infrastructure.Repositories
@@ -16,5 +17,6 @@ namespace DWShop.Infrastructure.Repositories
         Task SaveChangesAsync();
 
         Task UpdateAsync(T entity);
+
     }
 }

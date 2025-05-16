@@ -13,10 +13,10 @@ namespace DWShop.Application.Features.Basket.Commands.Create
             var basket = mapper.Map<Domain.Entities.Basket>(request);
             basket.UserName = "User";
 
-            await repositoryAsync.AddAsync(basket);
+          var category =  await repositoryAsync.AddAsync(basket);
 
             await repositoryAsync.SaveChangesAsync();
-
+            //ROLLBACK
             return await Result<int>.SuccessAsync(basket.Id, "");
         }
     }
