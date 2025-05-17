@@ -3,6 +3,7 @@ using DWShop.Domain.Entities;
 using DWShop.Domain.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace DWShop.Infrastructure.Context
 {
@@ -11,7 +12,7 @@ namespace DWShop.Infrastructure.Context
 
         public AuditableContext(DbContextOptions options) : base(options)
         {
-
+            
         }
         public DbSet<Basket> Basket { get; set; }
         public DbSet<Catalog> Catalog { get; set; }
@@ -116,7 +117,8 @@ namespace DWShop.Infrastructure.Context
         private Task OnAfterSaveChanges(List<AuditEntry> auditEntries)
         {
 
-            if (auditEntries is null || !auditEntries.Any())
+
+            if (auditEntries is null || ! auditEntries.Any())
                 return Task.CompletedTask;
             
 

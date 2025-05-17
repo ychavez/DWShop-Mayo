@@ -42,16 +42,22 @@ namespace DWShop.Service.Api
                 .AddEntityFrameworkStores<AuditableContext>();
 
 
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            var key = builder.Configuration["identity:key"];
+
+            builder.Services.AddAuthentication(x => {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            })
                 .AddJwtBearer(options =>
                 {
                     options.RequireHttpsMetadata = false;
                     options.SaveToken = true;
                     options.TokenValidationParameters = new()
                     {
-                        ValidateIssuerSigningKey = true,
+                        ValidateIssuerSigningKey = false,
                         IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.ASCII.GetBytes("SDFGsdfgsdfgSDFfsdfsfGsdfg")),  //llevar  appsettings,
+                        Encoding.ASCII.GetBytes(key!)),  //llevar  appsettings,
                         ValidateIssuer = false,
                         ValidateAudience = false
                     };

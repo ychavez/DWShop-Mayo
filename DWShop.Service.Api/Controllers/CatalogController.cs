@@ -3,6 +3,7 @@ using DWShop.Application.Features.Catalog.Commands.Create;
 using DWShop.Application.Features.Catalog.Queries;
 using DWShop.Application.Responses.Catalog;
 using DWShop.Shared.Wrapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,7 +12,7 @@ namespace DWShop.Service.Api.Controllers
    
     public class CatalogController : BaseApiController
     {
-        [Authorize(Roles = "Admin",)]
+        
         [HttpPost]
         public async Task<ActionResult<Result<int>>> CreateProduct(
             [FromBody] CreateCatalogCommand createCatalogCommand)
@@ -27,7 +28,7 @@ namespace DWShop.Service.Api.Controllers
             => Ok(await mediator.Send(new DeleteCatalogCommand { Id = id }));
 
 
-       
+        [Authorize(Roles = "Admin2")]
         [HttpGet]
         public async Task<ActionResult<Result<IEnumerable<CatalogResponse>>>> GetAll()
             => Ok(await mediator.Send(new GetCatalogQuery()));

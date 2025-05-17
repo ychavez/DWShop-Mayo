@@ -56,6 +56,16 @@
     {
         public T Data { get; set; }
 
+        public new static Task<Result<T>> FailAsync(string message) 
+        {
+            return Task.FromResult(Fail(message));
+        }
+
+        public new static Task<Result<T>> FailAsync(List<string> messages)
+        {
+            return Task.FromResult(Fail(messages));
+        }
+
         public new static Result<T> Fail()
         {
             return new Result<T> { Succeded = false };

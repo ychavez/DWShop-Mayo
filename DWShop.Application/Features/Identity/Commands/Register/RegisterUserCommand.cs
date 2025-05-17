@@ -1,9 +1,10 @@
-﻿using DWShop.Shared.Wrapper;
+﻿using DWShop.Application.Responses.Identity;
+using DWShop.Shared.Wrapper;
 using MediatR;
 
 namespace DWShop.Application.Features.Identity.Commands.Register
 {
-    public class RegisterUserCommand : IRequest<Result<string>>
+    public class RegisterUserCommand : IRequest<Result<LoginResponse>>
     {
         public string UserName { get; set; } = null!;
         public string Password { get; set; } = null!;
