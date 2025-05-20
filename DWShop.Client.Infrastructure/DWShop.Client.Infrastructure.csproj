@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DWShop.Application\DWShop.Application.csproj" />
     <ProjectReference Include="..\DWShop.Shared\DWShop.Shared.csproj" />
   </ItemGroup>
 
