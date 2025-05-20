@@ -4,6 +4,7 @@ using DWShop.Application.Responses.Identity;
 using DWShop.Client.Infrastructure.Constants;
 using DWShop.Client.Infrastructure.Managers.Login;
 using DWShop.Shared.Wrapper;
+using DWShop.Web.Infrastructure.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Net.Http.Headers;
 
@@ -46,6 +47,8 @@ namespace DWShop.Web.Infrastructure.Services
 
                 httpClient.DefaultRequestHeaders.Authorization =
                   new AuthenticationHeaderValue(BaseConfiguration.Scheme, result.Data.Token);
+
+                await ((DWStateProvider)authenticationStateProvider).StateChanged();
 
                 return await Result<Object>.SuccessAsync(new { },"");
             }

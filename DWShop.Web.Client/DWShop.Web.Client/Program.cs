@@ -1,6 +1,12 @@
-using DWShop.Web.Client.Client.Pages;
+using Blazored.LocalStorage;
+using DWShop.Client.Infrastructure.Constants;
+using DWShop.Client.Infrastructure.Extensions;
 using DWShop.Web.Client.Components;
+using DWShop.Web.Infrastructure.Authentication;
+using DWShop.Web.Infrastructure.Services;
+using Microsoft.AspNetCore.Components.Authorization;
 using MudBlazor.Services;
+
 
 namespace DWShop.Web.Client
 {
@@ -15,6 +21,18 @@ namespace DWShop.Web.Client
                 .AddInteractiveWebAssemblyComponents();
 
             builder.Services.AddMudServices();
+
+            builder.Services.AddBlazoredLocalStorage();
+            builder.Services.AddScoped<DWStateProvider>();
+            builder.Services.AddScoped<ILoginService, LoginService>();
+            builder.Services.AddScoped<AuthenticationStateProvider, DWStateProvider>();
+            builder.Services.AddManagers();
+            builder.Services.AddAuthenticationCore(options => { });
+            builder.Services.AddTransient<AuthenticationHeaderHandler>();
+            builder.Services.AddHttpClient("", x =>
+            {
+                x.BaseAddress = new Uri(BaseConfiguration.BaseAddress);
+            }).AddHttpMessageHandler<AuthenticationHeaderHandler>();
 
             var app = builder.Build();
 
