@@ -1,4 +1,5 @@
 ﻿@using DWShop.Web.Client.Client.Layout
+@using DWShop.Web.Client.Client.Pages
 
 
 <Router AppAssembly="@typeof(Program).Assembly"
@@ -7,7 +8,7 @@
         <AuthorizeRouteView RouteData="@routerData"
                             DefaultLayout="@typeof(MainLayout)">
             <NotAuthorized>
-                @* aqui poner el login *@
+               <Login/>
             </NotAuthorized>
         </AuthorizeRouteView>
     </Found>
