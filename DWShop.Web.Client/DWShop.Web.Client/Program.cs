@@ -22,12 +22,12 @@ namespace DWShop.Web.Client
 
             builder.Services.AddMudServices();
 
+            builder.Services.AddScoped<ClientPreferencesServices>();
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddScoped<DWStateProvider>();
             builder.Services.AddScoped<ILoginService, LoginService>();
             builder.Services.AddScoped<AuthenticationStateProvider, DWStateProvider>();
             builder.Services.AddManagers();
-            builder.Services.AddAuthenticationCore(options => { });
             builder.Services.AddTransient<AuthenticationHeaderHandler>();
             builder.Services.AddHttpClient("", x =>
             {

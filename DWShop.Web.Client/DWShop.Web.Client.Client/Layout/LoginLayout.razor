@@ -1,0 +1,16 @@
+﻿@inherits LayoutComponentBase
+
+
+<MudThemeProvider />
+<MudPopoverProvider />
+
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+
+
+<MudContainer MaxWidth="MaxWidth.False">
+    <MudPaper Elevation="3" style="min-width: 350px; max-width: 400px; border-radius: 8px">
+        @Body
+      </MudPaper>
+
+</MudContainer>

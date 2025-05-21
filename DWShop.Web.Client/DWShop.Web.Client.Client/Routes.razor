@@ -2,15 +2,11 @@
 @using DWShop.Web.Client.Client.Pages
 
 
+
 <Router AppAssembly="@typeof(Program).Assembly"
         AdditionalAssemblies="new[] { typeof(Client._Imports).Assembly}">
-    <Found Context="routerData">
-        <AuthorizeRouteView RouteData="@routerData"
-                            DefaultLayout="@typeof(MainLayout)">
-            <NotAuthorized>
-               <Login/>
-            </NotAuthorized>
-        </AuthorizeRouteView>
+    <Found Context="routerData" >
+        <RouteView RouteData="routerData" DefaultLayout="@typeof(MainLayout)"/>
     </Found>
     <NotFound>
         <LayoutView Layout="@typeof(MainLayout)">

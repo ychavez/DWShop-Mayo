@@ -1,6 +1,9 @@
-﻿@page "/login"
+﻿@using DWShop.Web.Client.Client.Layout
+@layout LoginLayout
+@page "/login"
+
 @using Blazored.FluentValidation
-@rendermode InteractiveServer
+
 
 <EditForm Model="@_TokenModel" OnValidSubmit="SubmitAsync" >
 

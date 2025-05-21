@@ -1,9 +1,4 @@
 ﻿using MudBlazor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DWShop.Web.Infrastructure.Settings
 {
@@ -15,7 +10,10 @@ namespace DWShop.Web.Infrastructure.Settings
         {
             PaletteLight = new()
             {
-                Primary = new MudBlazor.Utilities.MudColor("#CDDC39")
+                Primary = "#CDDC39",
+                AppbarBackground = "#FF5722",
+                DrawerBackground = "#78909C",
+                Success = "#00838F"
 
             }
 
@@ -24,9 +22,23 @@ namespace DWShop.Web.Infrastructure.Settings
 
         public static MudTheme DarkTheme = new()
         {
-            PaletteDark = new()
+            PaletteLight = new()
             {
-                Primary = new MudBlazor.Utilities.MudColor("#1E88E5")
+                Primary = "#1E88E5",
+                Success = "#007E33",
+                Black = "#27272f",
+                Background = "#32333d",
+                Surface = "#373740",
+                DrawerBackground = "#27272f",
+                DrawerText = "rgba(255,255,255, 0.50)",
+                AppbarBackground = "#373740",
+                AppbarText = "rgba(255,255,255, 0.70)",
+                TextPrimary = "rgba(255,255,255, 0.70)",
+                TextSecondary = "rgba(255,255,255, 0.50)",
+                ActionDefault = "#adadb1",
+                ActionDisabled = "rgba(255,255,255, 0.26)",
+                ActionDisabledBackground = "rgba(255,255,255, 0.12)",
+                DrawerIcon = "rgba(255,255,255, 0.50)"
 
             }
 

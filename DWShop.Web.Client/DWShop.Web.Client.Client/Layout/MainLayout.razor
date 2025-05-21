@@ -1,6 +1,6 @@
 ﻿@inherits LayoutComponentBase
 
-<MudThemeProvider />
+<MudThemeProvider Theme="currentTheme" />
 <MudPopoverProvider />
 
 <MudDialogProvider/>
@@ -8,9 +8,12 @@
 
 <MudLayout>
     <MudAppBar>
-        <MudIconButton Icon="@Icons.Material.Filled.Apps" Edge="Edge.Start"/>
+        <MudIconButton OnClick="@ToggleDrawer" 
+            Icon="@Icons.Material.Filled.Apps"
+            Edge="Edge.Start"/>
         <MudSpacer/>
-        <MudIconButton Icon="@Icons.Material.Filled.Brightness6" />
+        <MudIconButton OnClick="@DarkMode" 
+            Icon="@Icons.Material.Filled.Brightness6" />
     </MudAppBar>
 
     <MudDrawer @bind-Open="@navOpen" ClipMode="DrawerClipMode.Docked">

@@ -1,6 +1,7 @@
 ﻿using Blazored.LocalStorage;
 using DWShop.Client.Infrastructure.Constants;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.JSInterop;
 using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Text.Json;
@@ -10,10 +11,12 @@ namespace DWShop.Web.Infrastructure.Authentication
     public class DWStateProvider : AuthenticationStateProvider
     {
         private readonly ILocalStorageService localStorageService;
+        private readonly IJSRuntime jSRuntime;
 
-        public DWStateProvider(ILocalStorageService localStorageService)
+        public DWStateProvider(ILocalStorageService localStorageService, IJSRuntime jSRuntime)
         {
             this.localStorageService = localStorageService;
+            this.jSRuntime = jSRuntime;
         }
 
         public void MarkAsLoggedOut()
@@ -69,25 +72,22 @@ namespace DWShop.Web.Infrastructure.Authentication
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
+
+            if (jSRuntime is not IJSInProcessRuntime)
+            {
+                return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+            }
+
             string savedToken = "";
 
-            try
+            var tokenFromStorage = await localStorageService.GetItemAsStringAsync(BaseConfiguration.AuthToken);
+
+            if (tokenFromStorage is string strToken)
             {
-                var tokenFromStorage = await localStorageService.GetItemAsStringAsync(BaseConfiguration.AuthToken);
-
-                if (tokenFromStorage is string strToken)
-                {
-                    savedToken =  strToken;
-                }
-                else
-                    return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
-
+                savedToken = strToken;
             }
-            catch (Exception)
-            {
-
-                throw;
-            }
+            else
+                return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
 
             var state = new AuthenticationState(
                 new ClaimsPrincipal(new ClaimsIdentity(GetClaimsFromJwt(savedToken), "jwt")));
@@ -106,9 +106,11 @@ namespace DWShop.Web.Infrastructure.Authentication
 
             await localStorageService.RemoveItemAsync(BaseConfiguration.AuthToken);
             return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+
+           
         }
 
-        public async Task StateChanged() 
+        public async Task StateChanged()
         {
             var authState = Task.FromResult(await GetAuthenticationStateAsync());
 

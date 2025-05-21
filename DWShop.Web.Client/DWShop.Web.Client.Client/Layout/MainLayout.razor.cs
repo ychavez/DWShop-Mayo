@@ -6,23 +6,24 @@ namespace DWShop.Web.Client.Client.Layout
     public partial class MainLayout
     {
 
-        private MudTheme currentTheme;
+
+        private MudTheme currentTheme = DWTheme.DefaultTheme;
 
         bool isDarkMode;
 
+
         public async Task DarkMode()
         {
+            isDarkMode = await _clientPreferences.ToogleDarkModeAsync();
+
             currentTheme = isDarkMode ?
-                  DWTheme.DarkTheme : 
-                  DWTheme.DefaultTheme;
+                  DWTheme.DefaultTheme :
+                  DWTheme.DarkTheme;
         }
 
-        protected override void OnAfterRender(bool firstRender)
+        void ToggleDrawer() 
         {
-            if (!firstRender)
-                return;
-
-            base.OnAfterRender(firstRender);
+            navOpen = !navOpen;
         }
     }
 }
