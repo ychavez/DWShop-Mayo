@@ -1,5 +1,15 @@
 ﻿@inherits LayoutComponentBase
 
+<style>
+    body {
+        background-color: #074cfa; /* Cambia este color según tus necesidades */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+</style>
 
 <MudThemeProvider />
 <MudPopoverProvider />
@@ -7,10 +17,8 @@
 <MudDialogProvider/>
 <MudSnackbarProvider/>
 
-
 <MudContainer MaxWidth="MaxWidth.False">
     <MudPaper Elevation="3" style="min-width: 350px; max-width: 400px; border-radius: 8px">
         @Body
-      </MudPaper>
-
+    </MudPaper>
 </MudContainer>
