@@ -2,12 +2,18 @@
 @using DWShop.Web.Client.Client.Pages
 @using DWShop.Web.Client.Components.Layout
 
+<CascadingAuthenticationState>
 
 
 <Router AppAssembly="@typeof(Program).Assembly"
         AdditionalAssemblies="new[] { typeof(Client._Imports).Assembly}">
     <Found Context="routerData" >
-        <RouteView RouteData="routerData" DefaultLayout="@typeof(MainLayout)"/>
+        <AuthorizeRouteView RouteData="routerData" DefaultLayout="@typeof(MainLayout)">
+            <NotAuthorized>
+                <Login></Login>
+            </NotAuthorized>
+            
+            </AuthorizeRouteView>
     </Found>
     <NotFound>
         <LayoutView Layout="@typeof(MainLayout)">
@@ -17,3 +23,5 @@
     </NotFound>
 
 </Router>
+
+</CascadingAuthenticationState>

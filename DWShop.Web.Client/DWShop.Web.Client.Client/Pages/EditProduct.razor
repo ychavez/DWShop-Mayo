@@ -1,5 +1,7 @@
 ﻿@using Blazored.FluentValidation
 @using DWShop.Application.Features.Catalog.Commands.Create
+
+
 <EditForm Model="@ProductCommand" OnInvalidSubmit="InvalidSubmit">
     <FluentValidationValidator/>
     <MudDialog >

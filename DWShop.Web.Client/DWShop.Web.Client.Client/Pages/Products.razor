@@ -1,7 +1,9 @@
 ﻿@page "/products"
 @using DWShop.Application.Features.Catalog.Commands.Create
 @using DWShop.Application.Responses.Catalog
+@using Microsoft.AspNetCore.Authorization
 @using MudBlazor
+@attribute [Authorize]
 
 <MudText Typo="Typo.h2">Productos</MudText>
 
