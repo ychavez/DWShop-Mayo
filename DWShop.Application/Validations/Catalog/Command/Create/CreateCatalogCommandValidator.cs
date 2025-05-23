@@ -16,6 +16,9 @@ namespace DWShop.Application.Validations.Catalog.Command.Create
 
             RuleFor(x => x.Name)
                 .NotEmpty();
+
+            RuleFor(x => x.Description).MinimumLength(2)
+                .WithMessage(@"no se puede oiga, pongale mas texto {0}");
         }
     }
 }

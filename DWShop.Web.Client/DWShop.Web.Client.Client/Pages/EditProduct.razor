@@ -1,0 +1,80 @@
+﻿@using Blazored.FluentValidation
+@using DWShop.Application.Features.Catalog.Commands.Create
+<EditForm Model="@ProductCommand" OnInvalidSubmit="InvalidSubmit">
+    <FluentValidationValidator/>
+    <MudDialog >
+        <TitleContent>
+            <MudText Typo="Typo.h6">
+                <MudIcon Icon="@Icons.Material.Filled.Add"/>
+            </MudText>
+        </TitleContent>
+        <DialogContent>
+            <MudGrid>
+                <MudItem md="6">
+                    <MudTextField  For="()=> ProductCommand.Name"
+                    @bind-Value="ProductCommand.Name"
+                    Label="Nombre"></MudTextField>
+                </MudItem>
+                <MudItem md="6">
+                    <MudTextField Label="Categoria"
+                    For="()=> ProductCommand.Category"
+                    @bind-Value="ProductCommand.Category"></MudTextField>
+                </MudItem>
+                <MudItem md="6">
+                    <MudTextField Label="Descripcion"
+                    For="()=> ProductCommand.Description"
+                    @bind-Value="ProductCommand.Description"></MudTextField>
+                </MudItem>
+                <MudItem md="6">
+                    <MudTextField Label="Resumen"
+                    For="()=> ProductCommand.Summary"
+                    @bind-Value="ProductCommand.Summary"></MudTextField>
+                </MudItem>
+                <MudItem md="6">
+                    <MudTextField Label="Precio" For="()=> ProductCommand.Price"
+                    @bind-Value="ProductCommand.Price"></MudTextField>
+                </MudItem>
+                <MudItem md="6">
+                    <MudTextField Label="Photo" For="()=> ProductCommand.PhotoURL"
+                    @bind-Value="ProductCommand.PhotoURL"></MudTextField>
+                </MudItem>
+                <MudItem xs="12">
+                    <MudButton ButtonType="ButtonType.Submit" Color="Color.Primary">
+                        Guardar</MudButton>
+                </MudItem>
+            </MudGrid>
+        </DialogContent>
+    </MudDialog>
+</EditForm>
+
+@code
+{
+    [Parameter]
+    public CreateCatalogCommand ProductCommand { get; set; } = new();
+
+    [CascadingParameter]
+    private IMudDialogInstance DialogInstance { get; set; }
+
+    [Inject]
+    ISnackbar _snackbar { get; set; }
+
+    private async Task InvalidSubmit()
+    {
+        _snackbar.Add("Revise todos los campos", Severity.Error);
+
+    }
+
+    /// <summary>
+    /// Practiva 5 puntos
+    /// 1.- crerar componente de lista de categorias
+    /// 2.- crear componente de edicion de categorias
+    /// 3.- retuilizar el mismo componente para crear categorias
+    /// 4.- revisar funcionalidad
+    /// 
+    /// </summary>
+
+
+
+}
+
+                    

@@ -1,0 +1,103 @@
+﻿@page "/products"
+@using DWShop.Application.Features.Catalog.Commands.Create
+@using DWShop.Application.Responses.Catalog
+@using MudBlazor
+
+<MudText Typo="Typo.h2">Productos</MudText>
+
+
+<MudTable Items="@Elements" Filter="FilterFunc">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Productos</MudText>
+        <MudSpacer />
+        <MudTextField Placeholder="Buscar" Adornment="Adornment.Start"
+        AdornmentIcon="@Icons.Material.Filled.Search"
+        @bind-Value="searchString"
+        IconSize="Size.Medium"></MudTextField>
+
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Nombre</MudTh>
+        <MudTh>Categoria</MudTh>
+        <MudTh>Descripcion</MudTh>
+        <MudTh>Resumen</MudTh>
+        <MudTh>Precio</MudTh>
+        <MudTh>Acciones</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Nombre">@context.Name</MudTd>
+        <MudTd DataLabel="Categoria">@context.Category</MudTd>
+        <MudTd DataLabel="Descripcion">@context.Description</MudTd>
+        <MudTd DataLabel="Resumen">@context.Summary</MudTd>
+        <MudTd DataLabel="Precio">@context.Price.ToString("C2")</MudTd>
+        <MudTd DataLabel="Acciones">
+            <MudMenu Label="Acciones" EndIcon="@Icons.Material.Filled.ArrowDropDown">
+                <MudMenuItem @onclick="@(()=> InvokeModal(context.Id) )">Editar</MudMenuItem>
+                <MudMenuItem>Eliminar</MudMenuItem>
+            </MudMenu>
+        </MudTd>
+    </RowTemplate>
+</MudTable>
+
+@code {
+
+    [Inject]
+    IDialogService _dialogService { get; set; }
+
+    private async Task InvokeModal(int id)
+    {
+
+        var parameters = new DialogParameters();
+
+        var product = Elements.First(x => x.Id == id);
+        parameters.Add(nameof(EditProduct.ProductCommand), new CreateCatalogCommand
+        {
+            Category = product.Category,
+            Name = product.Name,
+            Description = product.Description,
+            Summary = product.Summary,
+            Price = product.Price,
+            PhotoURL = product.PhotoURL
+        });
+
+        var options = new DialogOptions() { CloseButton = true };
+
+        var dialog =  await _dialogService
+        .ShowAsync<EditProduct>("Editar producto", parameters, options);
+
+
+        var result = await dialog.Result;
+    }
+
+
+    public IEnumerable<CatalogResponse> Elements;
+
+    private string searchString = string.Empty;
+
+    private bool FilterFunc(CatalogResponse elemnt)
+    {
+        if (string.IsNullOrEmpty(searchString))
+            return true;
+
+        return elemnt.Name.Contains(searchString);
+    }
+
+    protected override void OnInitialized()
+       {
+           Elements = new List<CatalogResponse>
+           {
+               new CatalogResponse { Id = 1, Name = "Producto 1", Category = "Categoría A", Description = "Descripción 1", Summary = "Resumen 1", Price = 10.99m },
+               new CatalogResponse { Id = 2, Name = "Producto 2", Category = "Categoría B", Description = "Descripción 2", Summary = "Resumen 2", Price = 20.99m },
+               new CatalogResponse { Id = 3, Name = "Producto 3", Category = "Categoría A", Description = "Descripción 3", Summary = "Resumen 3", Price = 30.99m },
+               new CatalogResponse { Id = 4, Name = "Producto 4", Category = "Categoría C", Description = "Descripción 4", Summary = "Resumen 4", Price = 40.99m },
+               new CatalogResponse { Id = 5, Name = "Producto 5", Category = "Categoría B", Description = "Descripción 5", Summary = "Resumen 5", Price = 50.99m },
+               new CatalogResponse { Id = 6, Name = "Producto 6", Category = "Categoría A", Description = "Descripción 6", Summary = "Resumen 6", Price = 60.99m },
+               new CatalogResponse { Id = 7, Name = "Producto 7", Category = "Categoría C", Description = "Descripción 7", Summary = "Resumen 7", Price = 70.99m },
+               new CatalogResponse { Id = 8, Name = "Producto 8", Category = "Categoría B", Description = "Descripción 8", Summary = "Resumen 8", Price = 80.99m },
+               new CatalogResponse { Id = 9, Name = "Producto 9", Category = "Categoría A", Description = "Descripción 9", Summary = "Resumen 9", Price = 90.99m },
+               new CatalogResponse { Id = 10, Name = "Producto 10", Category = "Categoría C", Description = "Descripción 10", Summary = "Resumen 10", Price = 100.99m }
+           };
+       }
+
+    
+}

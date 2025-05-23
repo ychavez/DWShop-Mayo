@@ -18,6 +18,7 @@ namespace DWShop.Web.Client
 
             // Add services to the container.
             builder.Services.AddRazorComponents()
+                .AddInteractiveServerComponents()
                 .AddInteractiveWebAssemblyComponents();
 
             builder.Services.AddMudServices();
@@ -28,6 +29,9 @@ namespace DWShop.Web.Client
             builder.Services.AddScoped<ILoginService, LoginService>();
             builder.Services.AddScoped<AuthenticationStateProvider, DWStateProvider>();
             builder.Services.AddManagers();
+
+            builder.Services.AddAuthorizationCore(x => { });
+
             builder.Services.AddTransient<AuthenticationHeaderHandler>();
             builder.Services.AddHttpClient("", x =>
             {
@@ -51,6 +55,7 @@ namespace DWShop.Web.Client
             app.MapStaticAssets();
             app.MapRazorComponents<App>()
                 .AddInteractiveWebAssemblyRenderMode()
+                .AddInteractiveServerRenderMode()
                 .AddAdditionalAssemblies(typeof(Client._Imports).Assembly);
 
             app.Run();
