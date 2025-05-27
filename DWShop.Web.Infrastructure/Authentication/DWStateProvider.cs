@@ -72,42 +72,44 @@ namespace DWShop.Web.Infrastructure.Authentication
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-
-            if (jSRuntime is not IJSInProcessRuntime)
+            try
             {
+
+                string savedToken = "";
+
+                var tokenFromStorage = await localStorageService.GetItemAsStringAsync(BaseConfiguration.AuthToken);
+
+                if (tokenFromStorage is string strToken)
+                {
+                    savedToken = strToken;
+                }
+                else
+                    return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+
+                var state = new AuthenticationState(
+                    new ClaimsPrincipal(new ClaimsIdentity(GetClaimsFromJwt(savedToken), "jwt")));
+
+                var user = state.User;
+                string? exp = user.FindFirst(x => x.Type == "exp")?.Value;
+
+                var expTime = DateTimeOffset.FromUnixTimeSeconds(Convert.ToInt64(exp));
+
+                var diff = expTime - DateTimeOffset.UtcNow;
+
+                if (diff.TotalMinutes >= 1)
+                {
+                    return state;
+                }
+
+                await localStorageService.RemoveItemAsync(BaseConfiguration.AuthToken);
+                return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
+            }
+            catch (InvalidOperationException)
+            {
+
                 return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
             }
 
-            string savedToken = "";
-
-            var tokenFromStorage = await localStorageService.GetItemAsStringAsync(BaseConfiguration.AuthToken);
-
-            if (tokenFromStorage is string strToken)
-            {
-                savedToken = strToken;
-            }
-            else
-                return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
-
-            var state = new AuthenticationState(
-                new ClaimsPrincipal(new ClaimsIdentity(GetClaimsFromJwt(savedToken), "jwt")));
-
-            var user = state.User;
-            string? exp = user.FindFirst(x => x.Type == "exp")?.Value;
-
-            var expTime = DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(exp));
-
-            var diff = expTime - DateTimeOffset.UtcNow;
-
-            if (diff.TotalMinutes >= 1)
-            {
-                return state;
-            }
-
-            await localStorageService.RemoveItemAsync(BaseConfiguration.AuthToken);
-            return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
-
-           
         }
 
         public async Task StateChanged()
