@@ -21,10 +21,15 @@ namespace DWShop.Web.Infrastructure.Authentication
 
                 if (request.Headers.Authorization?.Scheme != BaseConfiguration.Scheme)
                 {
-                    var savedToken = await localStorageService.GetItemAsync<string>(BaseConfiguration.AuthToken);
-                    if (!string.IsNullOrEmpty(savedToken))
+
+                    if (BaseConfiguration.Token is null)
                     {
-                        request.Headers.Authorization = new AuthenticationHeaderValue(BaseConfiguration.Scheme, savedToken);
+                        BaseConfiguration.Token = await localStorageService.GetItemAsync<string>(BaseConfiguration.AuthToken);
+                    }
+                    
+                    if (!string.IsNullOrEmpty(BaseConfiguration.Token))
+                    {
+                        request.Headers.Authorization = new AuthenticationHeaderValue(BaseConfiguration.Scheme, BaseConfiguration.Token);
 
                     }
                 }

@@ -25,6 +25,8 @@ namespace DWShop.Application.Features.Catalog.Queries
 
             var catalogResponse = mapper.Map<List<CatalogResponse>>(catalogs);
 
+            var catalogResponsew = mapper.Map<List<CatalogResponse>>(catalogs);
+
             return await Result<IEnumerable<CatalogResponse>>.SuccessAsync(catalogResponse, "");
 
         }

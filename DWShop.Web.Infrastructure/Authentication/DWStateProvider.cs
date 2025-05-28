@@ -77,9 +77,17 @@ namespace DWShop.Web.Infrastructure.Authentication
 
                 string savedToken = "";
 
-                var tokenFromStorage = await localStorageService.GetItemAsStringAsync(BaseConfiguration.AuthToken);
+                if (BaseConfiguration.Token is not null)
+                {
+                    savedToken = BaseConfiguration.Token;
+                }
+                else if (BaseConfiguration.Token is null && localStorageService is not null)
+                {
+                    BaseConfiguration.Token = await localStorageService.GetItemAsync<string>(BaseConfiguration.AuthToken);
+                }
+               
 
-                if (tokenFromStorage is string strToken)
+                if (BaseConfiguration.Token is string strToken)
                 {
                     savedToken = strToken;
                 }
@@ -102,6 +110,7 @@ namespace DWShop.Web.Infrastructure.Authentication
                 }
 
                 await localStorageService.RemoveItemAsync(BaseConfiguration.AuthToken);
+                BaseConfiguration.Token = null;
                 return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));
             }
             catch (InvalidOperationException)

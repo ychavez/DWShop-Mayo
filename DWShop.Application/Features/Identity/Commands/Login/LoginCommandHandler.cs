@@ -25,6 +25,7 @@ namespace DWShop.Application.Features.Identity.Commands.Login
             this.signInManager = signInManager;
             this.mapper = mapper;
         }
+
         public async Task<Result<LoginResponse>> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             if (  !  await accountService.UserExists(request.UserName))
