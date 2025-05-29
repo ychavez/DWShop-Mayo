@@ -45,6 +45,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DWShop.Web.Client", "DWShop
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DWShop.Web.Client.Client", "DWShop.Web.Client\DWShop.Web.Client.Client\DWShop.Web.Client.Client.csproj", "{5734B41C-FF0F-44A7-A44F-D96ACF14C73F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DWShop.Client.Mobile", "DWShop.Client.Mobile\DWShop.Client.Mobile.csproj", "{1EABBF61-87C2-4B86-BADD-C100B65F03A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,10 @@ Global
 		{5734B41C-FF0F-44A7-A44F-D96ACF14C73F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5734B41C-FF0F-44A7-A44F-D96ACF14C73F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5734B41C-FF0F-44A7-A44F-D96ACF14C73F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EABBF61-87C2-4B86-BADD-C100B65F03A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EABBF61-87C2-4B86-BADD-C100B65F03A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EABBF61-87C2-4B86-BADD-C100B65F03A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EABBF61-87C2-4B86-BADD-C100B65F03A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -118,6 +124,7 @@ Global
 		{36B9E527-0577-44E4-8671-CE664674603B} = {64D46914-87C2-4569-B289-58F05EBA557B}
 		{FE79E0A8-30BD-430B-940F-2A710E1E0394} = {CA59A97D-7D40-471D-B1B2-4223E0838EC6}
 		{5734B41C-FF0F-44A7-A44F-D96ACF14C73F} = {CA59A97D-7D40-471D-B1B2-4223E0838EC6}
+		{1EABBF61-87C2-4B86-BADD-C100B65F03A7} = {6FC7A073-3C87-4E72-8E0B-D4DCD5176884}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9D11C47F-3D62-4D47-9313-9FE71058B919}
