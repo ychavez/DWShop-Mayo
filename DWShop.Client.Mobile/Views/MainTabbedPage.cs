@@ -8,9 +8,6 @@
             Children.Add(productListView);
             Children.Add(basketView);
             Children.Add(productView);
-
-            
         }
-
     }
 }
