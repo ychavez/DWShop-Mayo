@@ -1,6 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using DWShop.Client.Infrastructure.Extensions;
 using DWShop.Client.Mobile.Views;
+using DWShop.Client.Mobile.Services;
+using DWShop.Client.Mobile.Context;
+using DWShop.Client.Infrastructure.Constants;
 
 namespace DWShop.Client.Mobile
 {
@@ -21,6 +24,9 @@ namespace DWShop.Client.Mobile
                 .AddTransient<MainTabbedPage>()
                 .AddTransient<ProductListView>()
                 .AddTransient<ProductView>()
+                .AddTransient<UtilityService>()
+                .AddTransient<ProductRepo>()
+                .AddScoped(sp => new HttpClient() {  BaseAddress = new Uri(BaseConfiguration.BaseAddress) })
                 .AddManagers();
                 
 
