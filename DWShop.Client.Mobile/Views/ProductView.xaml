@@ -4,11 +4,11 @@
              x:Class="DWShop.Client.Mobile.Views.ProductView"
              Title="ProductView">
     <VerticalStackLayout>
-        <Image Source="dotnet_bot.png" HeightRequest="300"/>
+        <Image Source="{Binding ProductModel.PhotoURL}" HeightRequest="300"/>
 
-        <Label Text="Descripcion del producto"  Margin="10"/>
+        <Label Text="{Binding ProductModel.ProductName}"  Margin="10"/>
 
-        <Label Text="104$"  Margin="10"/>
+        <Label Text="{Binding ProductModel.Price}"  Margin="10"/>
 
         <Button Text="Agregar a canasta"/>
 

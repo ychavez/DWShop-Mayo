@@ -28,6 +28,8 @@ namespace DWShop.Client.Mobile
                 .AddTransient<UtilityService>()
                 .AddTransient<ProductRepo>()
                 .AddTransient<ProductListViewModel>()
+                .AddTransient<ProductViewModel>()
+                .AddTransient<LoginViewModel>()
                 .AddScoped(sp => new HttpClient() {  BaseAddress = new Uri(BaseConfiguration.BaseAddress) })
                 .AddManagers();
                 

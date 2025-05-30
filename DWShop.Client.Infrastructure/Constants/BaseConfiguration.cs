@@ -8,7 +8,7 @@
         public static string? Token { get; set; }
 
 #if DEBUG
-        public const string BaseAddress = "http://localhost:5268/";
+        public const string BaseAddress = "https://8rvwk04l-5268.usw3.devtunnels.ms/";
 #else
         public const string BaseAddress = "www.google.com";
 #endif

@@ -5,11 +5,11 @@ using DWShop.Client.Mobile.ViewModels.Base;
 
 namespace DWShop.Client.Mobile.ViewModels
 {
-    public class ProductViewModel: BaseViewModel
+    public class ProductViewModel : BaseViewModel
     {
         ProductModel productModel;
 
-        public ProductModel ProductModel 
+        public ProductModel ProductModel
         {
             get => productModel;
             set => SetProperty(ref productModel, value);
@@ -17,10 +17,14 @@ namespace DWShop.Client.Mobile.ViewModels
 
         public ProductViewModel()
         {
-            WeakReferenceMessenger.Default.Register<ProductDetailMessage>("", (o, m) =>
+            if (!WeakReferenceMessenger.Default.IsRegistered<ProductDetailMessage>(""))
             {
-                ProductModel = m.Data;
-            });
+
+                WeakReferenceMessenger.Default.Register<ProductDetailMessage>("", (o, m) =>
+                {
+                    ProductModel = m.Data;
+                });
+            }
         }
     }
 }

@@ -4,17 +4,17 @@ namespace DWShop.Client.Mobile
 {
     public partial class App : Microsoft.Maui.Controls.Application
     {
-        private readonly MainTabbedPage tabbedPage;
+        private readonly LoginView loginView;
 
-        public App(MainTabbedPage tabbedPage)
+        public App(LoginView loginView)
         {
             InitializeComponent();
-            this.tabbedPage = tabbedPage;
+            this.loginView = loginView;
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new NavigationPage(tabbedPage));
+            return new Window(loginView);
         }
     }
 }
