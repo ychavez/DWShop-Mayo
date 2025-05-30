@@ -28,10 +28,16 @@ namespace DWShop.Service.Api.Controllers
             => Ok(await mediator.Send(new DeleteCatalogCommand { Id = id }));
 
 
-      
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<Result<IEnumerable<CatalogResponse>>>> GetAll()
             => Ok(await mediator.Send(new GetCatalogQuery()));
+
+
+        /* practica
+         * agregar la vista de la canasta con sus respectivo modelo y viremodel
+         * modelo de basket (Product, qty, price) crear una lista dummy que se llene desde el view model
+         */
         
     }
 }

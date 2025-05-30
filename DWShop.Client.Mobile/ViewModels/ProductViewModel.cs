@@ -2,6 +2,7 @@
 using DWShop.Client.Mobile.Messages;
 using DWShop.Client.Mobile.Models;
 using DWShop.Client.Mobile.ViewModels.Base;
+using System.Windows.Input;
 
 namespace DWShop.Client.Mobile.ViewModels
 {
@@ -9,6 +10,7 @@ namespace DWShop.Client.Mobile.ViewModels
     {
         ProductModel productModel;
 
+        public ICommand TakePhotoCommand { get; set; }
         public ProductModel ProductModel
         {
             get => productModel;
@@ -25,6 +27,18 @@ namespace DWShop.Client.Mobile.ViewModels
                     ProductModel = m.Data;
                 });
             }
+
+            TakePhotoCommand = new Command(async x => await TakePhoto());
+        }
+
+        private async Task TakePhoto()
+        {
+            var photo = await MediaPicker.Default.CapturePhotoAsync();
+            productModel.PhotoURL = photo.FullPath;
+
+            await Flashlight.Default.TurnOffAsync();
+
+            await TextToSpeech.Default.SpeakAsync("Photo taken");
         }
     }
 }

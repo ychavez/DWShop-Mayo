@@ -12,7 +12,7 @@
 
         <Button Text="Agregar a canasta"/>
 
-        <Button Text="Tomar foto"/>
+        <Button Text="Tomar foto" Command="{Binding TakePhotoCommand}"/>
 
     </VerticalStackLayout>
 </ContentPage>
