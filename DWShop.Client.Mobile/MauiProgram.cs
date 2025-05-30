@@ -4,6 +4,7 @@ using DWShop.Client.Mobile.Views;
 using DWShop.Client.Mobile.Services;
 using DWShop.Client.Mobile.Context;
 using DWShop.Client.Infrastructure.Constants;
+using DWShop.Client.Mobile.ViewModels;
 
 namespace DWShop.Client.Mobile
 {
@@ -26,6 +27,7 @@ namespace DWShop.Client.Mobile
                 .AddTransient<ProductView>()
                 .AddTransient<UtilityService>()
                 .AddTransient<ProductRepo>()
+                .AddTransient<ProductListViewModel>()
                 .AddScoped(sp => new HttpClient() {  BaseAddress = new Uri(BaseConfiguration.BaseAddress) })
                 .AddManagers();
                 

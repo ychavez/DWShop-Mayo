@@ -1,0 +1,26 @@
+﻿using CommunityToolkit.Mvvm.Messaging;
+using DWShop.Client.Mobile.Messages;
+using DWShop.Client.Mobile.Models;
+using DWShop.Client.Mobile.ViewModels.Base;
+
+namespace DWShop.Client.Mobile.ViewModels
+{
+    public class ProductViewModel: BaseViewModel
+    {
+        ProductModel productModel;
+
+        public ProductModel ProductModel 
+        {
+            get => productModel;
+            set => SetProperty(ref productModel, value);
+        }
+
+        public ProductViewModel()
+        {
+            WeakReferenceMessenger.Default.Register<ProductDetailMessage>("", (o, m) =>
+            {
+                ProductModel = m.Data;
+            });
+        }
+    }
+}

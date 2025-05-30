@@ -28,7 +28,7 @@ namespace DWShop.Service.Api.Controllers
             => Ok(await mediator.Send(new DeleteCatalogCommand { Id = id }));
 
 
-        [Authorize]
+      
         [HttpGet]
         public async Task<ActionResult<Result<IEnumerable<CatalogResponse>>>> GetAll()
             => Ok(await mediator.Send(new GetCatalogQuery()));
