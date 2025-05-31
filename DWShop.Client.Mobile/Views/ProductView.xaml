@@ -3,15 +3,43 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DWShop.Client.Mobile.Views.ProductView"
              Title="ProductView">
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="TextColor" Value="Green"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="Blue"/>
+        </Style>
+
+        <Style TargetType="Label" x:Key="EtiquetaCantidad">
+            <Setter Property="FontSize" Value="40"/>
+        </Style>
+        
+    </ContentPage.Resources>
     <VerticalStackLayout>
         <Image Source="{Binding ProductModel.PhotoURL}" HeightRequest="300"/>
 
-        <Label Text="{Binding ProductModel.ProductName}"  Margin="10"/>
+        <Label Text="{Binding ProductModel.ProductName}" 
+                
+               Margin="10"
+               FontSize="20"
+               />
 
-        <Label Text="{Binding ProductModel.Price}"  Margin="10"/>
+        <Label Text="{Binding ProductModel.Price}"
+               Style="{StaticResource EtiquetaCantidad}" 
+               Margin="10"/>
 
         <Button Text="Agregar a canasta"/>
 
+        <!--ultima practica
+        en el boton de agregar canasta enlazar a un commando que se ejecute en el view model
+        crear un modelo de canasta
+        crear un repo de canasta
+        meter el objeto a la base de datos local de canasta
+        mostrar la lista de la canasta-->
+        
+        
         <Button Text="Tomar foto" Command="{Binding TakePhotoCommand}"/>
 
     </VerticalStackLayout>

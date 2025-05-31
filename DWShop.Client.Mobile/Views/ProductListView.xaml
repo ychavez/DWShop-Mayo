@@ -2,13 +2,17 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DWShop.Client.Mobile.Views.ProductListView"
+             x:Name="ProductList"
              Title="ProductListView">
     <ScrollView>
 
         <ListView 
-                  RowHeight="100"
+                  RowHeight="100" 
+                  IsPullToRefreshEnabled="True"
                   ItemTapped="productListView_ItemTapped"
+    
                   ItemsSource="{Binding ProductsList}"
+                  RefreshCommand="{Binding RefreshCommand}"
                   >
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -24,7 +28,14 @@
                             <VerticalStackLayout Grid.Column="1" >
                                 <Label Text="{Binding ProductName}" />
                                 <Label Text="{Binding Price}" />
-                                <ImageButton HorizontalOptions="End" MaximumHeightRequest="50" Source="dotnet_bot.png"/>
+                               
+                                <ImageButton  Source="dotnet_bot.png"
+                                              Command="{Binding BindingContext.Algo, 
+                                               Source={x:Reference ProductList}}"
+                                             
+                                             CommandParameter="{Binding .}" 
+                                             HorizontalOptions="End" 
+                                             MaximumHeightRequest="50"/>
                             </VerticalStackLayout>
 
                         </Grid>
@@ -32,6 +43,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-  
+
     </ScrollView>
 </ContentPage>

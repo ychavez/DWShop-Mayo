@@ -2,6 +2,7 @@
 using DWShop.Client.Mobile.Messages;
 using DWShop.Client.Mobile.Models;
 using DWShop.Client.Mobile.ViewModels.Base;
+using DWShop.Client.Mobile.Views;
 using System.Windows.Input;
 
 namespace DWShop.Client.Mobile.ViewModels
