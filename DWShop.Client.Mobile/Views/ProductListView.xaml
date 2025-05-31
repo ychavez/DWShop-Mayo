@@ -6,18 +6,37 @@
              Title="ProductListView">
     <ScrollView>
 
-        <ListView 
-                  RowHeight="100" 
-                  IsPullToRefreshEnabled="True"
-                  ItemTapped="productListView_ItemTapped"
+        <CollectionView 
+                 
     
                   ItemsSource="{Binding ProductsList}"
-                  RefreshCommand="{Binding RefreshCommand}"
+                
                   >
-            <ListView.ItemTemplate>
+            <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
-                        <Grid>
+                    <SwipeView>
+
+                        <SwipeView.LeftItems>
+                            <SwipeItems Mode="Execute">
+                                <SwipeItem Text="Editar" 
+                                           BackgroundColor="Orange"  >
+                                </SwipeItem>
+                            </SwipeItems>
+
+                        </SwipeView.LeftItems>
+
+                        <SwipeView.RightItems>
+                            <SwipeItems Mode="Execute">
+                                <SwipeItem Text="Eliminar" BackgroundColor="Red"
+                                            Command="{Binding BindingContext.EliminarCommand, 
+                                                                    Source={x:Reference ProductList}}"
+                                                    CommandParameter="{Binding .}" ></SwipeItem>
+                            </SwipeItems>
+
+                        </SwipeView.RightItems>
+
+
+                            <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="2*"/>
@@ -30,19 +49,16 @@
                                 <Label Text="{Binding Price}" />
                                
                                 <ImageButton  Source="dotnet_bot.png"
-                                              Command="{Binding BindingContext.Algo, 
-                                               Source={x:Reference ProductList}}"
                                              
-                                             CommandParameter="{Binding .}" 
                                              HorizontalOptions="End" 
                                              MaximumHeightRequest="50"/>
                             </VerticalStackLayout>
 
                         </Grid>
-                    </ViewCell>
+                    </SwipeView>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
 
     </ScrollView>
 </ContentPage>

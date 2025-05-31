@@ -28,7 +28,7 @@ namespace DWShop.Client.Mobile.ViewModels
         public ICommand DetailCommand { get; set; }
         public ICommand RefreshCommand { get; set; }
 
-        public ICommand Algo { get; set; }
+        public ICommand EliminarCommand { get; set; }
 
 
         public ProductListViewModel(ProductView productView, IGetProductsManager productsManager,
@@ -36,8 +36,19 @@ namespace DWShop.Client.Mobile.ViewModels
         {
             DetailCommand = new Command<ProductModel>(ShowDetail);
             RefreshCommand = new Command(async x => { await LoadProducts(); });
-            Algo = new Command<ProductModel>(x =>
+            EliminarCommand = new Command<ProductModel>(async x =>
             {
+                bool answer = await Microsoft.Maui.Controls
+                .Application.Current.MainPage.DisplayAlert("Confirmar",
+                "Estas seguro que quieres borrar el producto", "Si", "No");
+
+                _ = await Microsoft.Maui.Controls
+            .Application.Current.MainPage.DisplayActionSheet("Opciones", "Cancelar", null,
+            "No estoy seguro", "Tal vez", "Super si", "No", "No lo se");
+
+
+                if (answer)
+                    ProductsList = new(ProductsList.Where(y => y.Id != x.Id).ToList());
 
             });
 
